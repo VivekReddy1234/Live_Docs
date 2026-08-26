@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans min-h-screen;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* Custom styles for Tiptap & Collaboration Cursors */
+.ProseMirror {
+  outline: none !important;
+  min-height: 500px;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #94a3b8;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Collaboration cursor & selection styles */
+.collaboration-cursor__caret {
+  position: relative;
+  margin-left: -1px;
+  margin-right: -1px;
+  border-left: 2px solid;
+  border-right: 0;
+  border-color: inherit;
+  word-break: normal;
+  pointer-events: none;
+}
+
+.collaboration-cursor__label {
+  position: absolute;
+  top: -1.4em;
+  left: -1px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: sans-serif;
+  line-height: normal;
+  user-select: none;
+  color: white;
+  padding: 1px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+/* Prose formatting */
+.ProseMirror h1 {
+  @apply text-3xl font-bold text-slate-900 mt-6 mb-3 tracking-tight;
+}
+
+.ProseMirror h2 {
+  @apply text-2xl font-bold text-slate-900 mt-5 mb-2.5 tracking-tight;
+}
+
+.ProseMirror h3 {
+  @apply text-xl font-semibold text-slate-800 mt-4 mb-2;
+}
+
+.ProseMirror p {
+  @apply text-base text-slate-700 leading-relaxed mb-3;
+}
+
+.ProseMirror ul {
+  @apply list-disc list-outside pl-6 mb-3 space-y-1 text-slate-700;
+}
+
+.ProseMirror ol {
+  @apply list-decimal list-outside pl-6 mb-3 space-y-1 text-slate-700;
+}
+
+.ProseMirror blockquote {
+  @apply border-l-4 border-brand-500 pl-4 py-1 my-3 italic text-slate-600 bg-brand-50/50 rounded-r;
+}
+
+.ProseMirror code {
+  @apply font-mono text-sm bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded border border-slate-200;
+}
+
+.ProseMirror pre {
+  @apply font-mono text-sm bg-slate-900 text-slate-100 p-4 rounded-lg my-4 overflow-x-auto;
+}
+
+.ProseMirror pre code {
+  @apply bg-transparent text-slate-100 p-0 border-0;
+}
+
+.ProseMirror mark {
+  @apply bg-yellow-200 px-1 py-0.5 rounded;
+}
+
+.ProseMirror hr {
+  @apply my-6 border-slate-200;
+}
