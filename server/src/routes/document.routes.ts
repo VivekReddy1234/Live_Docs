@@ -33,7 +33,7 @@ export async function getDocumentRole(
       return { doc, role: 'OWNER' };
     }
 
-    const perm = doc.permissions.find((p) => p.userId === userId);
+    const perm = doc.permissions.find((p: any) => p.userId === userId);
     if (perm) {
       return { doc, role: perm.role as DocumentRole };
     }
@@ -120,7 +120,7 @@ router.get('/', requireAuth, async (req: Request, res: Response): Promise<void> 
       }),
     ]);
 
-    const formattedDocs = documents.map((doc) => {
+    const formattedDocs = documents.map((doc: any) => {
       let role: DocumentRole = 'VIEWER';
       if (doc.ownerId === userId) {
         role = 'OWNER';
@@ -474,7 +474,7 @@ router.get('/:id/snapshots', requireAuth, async (req: Request, res: Response): P
     });
 
     res.json(
-      snapshots.map((s) => ({
+      snapshots.map((s: any) => ({
         ...s,
         createdAt: s.createdAt.toISOString(),
       }))

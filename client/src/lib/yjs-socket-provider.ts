@@ -66,8 +66,9 @@ export class LiveDocsSocketProvider {
 
   private connect() {
     const token = getAccessToken();
+    const socketUrl = import.meta.env.VITE_API_URL || undefined;
 
-    this.socket = io({
+    this.socket = io(socketUrl, {
       path: '/socket.io',
       auth: { token },
       transports: ['websocket', 'polling'],

@@ -114,14 +114,21 @@ docker compose up -d
 ```env
 PORT=5000
 CLIENT_URL=http://localhost:5173
-DATABASE_URL="postgresql://livedocs_user:livedocs_password@localhost:5432/livedocs_db?schema=public"
-REDIS_URL="redis://localhost:6379"
-JWT_ACCESS_SECRET="livedocs_super_secret_access_key_12345"
-JWT_REFRESH_SECRET="livedocs_super_secret_refresh_key_67890"
-JWT_ACCESS_EXPIRES_IN="15m"
-JWT_REFRESH_EXPIRES_IN="7d"
-NODE_ENV="development"
+DATABASE_URL=******localhost:5432/livedocs_db?schema=public
+REDIS_URL=redis://localhost:6379
+JWT_ACCESS_SECRET=replace-with-strong-random-secret
+JWT_REFRESH_SECRET=replace-with-strong-random-secret
+JWT_ACCESS_EXPIRES_IN=15m
+JWT_REFRESH_EXPIRES_IN=7d
+NODE_ENV=development
 ```
+
+**Client (`/client/.env`):**
+```env
+VITE_API_URL=
+```
+
+> Leave `VITE_API_URL` empty for local Vite proxy mode. Set it to your Render backend URL in production.
 
 ---
 
