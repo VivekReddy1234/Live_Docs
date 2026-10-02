@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { UserProfile, AuthResponse } from '@livedocs/shared';
-import { apiRequest, setAccessToken, getAccessToken } from '../lib/api';
+import { apiRequest, setAccessToken, getAccessToken, getApiUrl } from '../lib/api';
 
 interface AuthContextType {
   user: UserProfile | null;
@@ -26,7 +26,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setUser(res.user);
         } else {
           // Attempt silent refresh via httpOnly cookie
-          const refreshRes = await fetch('/api/auth/refresh', {
+          const refreshRes = await fetch(getApiUrl('/api/auth/refresh'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

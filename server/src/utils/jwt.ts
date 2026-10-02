@@ -44,7 +44,7 @@ export function setRefreshTokenCookie(res: Response, token: string): void {
   res.cookie('refreshToken', token, {
     httpOnly: true,
     secure: config.isProd,
-    sameSite: config.isProd ? 'strict' : 'lax',
+    sameSite: config.isProd ? 'none' : 'lax',
     maxAge: config.jwt.refreshExpiresInMs,
     path: '/',
   });
@@ -54,7 +54,7 @@ export function clearRefreshTokenCookie(res: Response): void {
   res.clearCookie('refreshToken', {
     httpOnly: true,
     secure: config.isProd,
-    sameSite: config.isProd ? 'strict' : 'lax',
+    sameSite: config.isProd ? 'none' : 'lax',
     path: '/',
   });
 }

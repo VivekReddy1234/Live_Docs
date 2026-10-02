@@ -1,4 +1,9 @@
 let accessToken: string | null = localStorage.getItem('livedocs_access_token');
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+
+export function getApiUrl(endpoint: string): string {
+  return `${API_BASE_URL}${endpoint}`;
+}
 
 export function setAccessToken(token: string | null): void {
   accessToken = token;
@@ -32,7 +37,9 @@ export async function apiRequest<T = any>(
     requestHeaders['Authorization'] = `Bearer ${accessToken}`;
   }
 
-  let response = await fetch(endpoint, {
+  const requestUrl = getApiUrl(endpoint);
+
+  let response = await fetch(requestUrl, {
     ...rest,
     headers: requestHeaders,
     credentials: 'include', // includes httpOnly cookies for refresh token
@@ -41,7 +48,7 @@ export async function apiRequest<T = any>(
   // Handle token expiration & automatic refresh
   if (response.status === 401 && requiresAuth) {
     try {
-      const refreshResponse = await fetch('/api/auth/refresh', {
+      const refreshResponse = await fetch(getApiUrl('/api/auth/refresh'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -53,7 +60,7 @@ export async function apiRequest<T = any>(
 
         // Retry original request with new token
         requestHeaders['Authorization'] = `Bearer ${refreshData.accessToken}`;
-        response = await fetch(endpoint, {
+        response = await fetch(requestUrl, {
           ...rest,
           headers: requestHeaders,
           credentials: 'include',
